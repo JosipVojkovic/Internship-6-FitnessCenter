@@ -40,3 +40,18 @@ CREATE TABLE Countries(
 	Population INT NOT NULL CHECK(Population > 0),
 	AverageSalary DECIMAL NOT NULL CHECK(AverageSalary > 0)
 )
+
+CREATE TABLE Users(
+	Id SERIAL PRIMARY KEY,
+	IdCountry INT REFERENCES Countries(Id),
+	FirstName VARCHAR(30) NOT NULL,
+	LastName VARCHAR(30) NOT NULL,
+	BirthDate DATE NOT NULL CHECK(BirthDate < CURRENT_DATE)
+)
+
+CREATE TABLE TermUsers(
+	Id SERIAL PRIMARY KEY,
+	IdTerm INT REFERENCES Terms(Id),
+	IdUser INT REFERENCES Users(Id),
+	SignupDate DATE CHECK(SignupDate < CURRENT_DATE)
+)
