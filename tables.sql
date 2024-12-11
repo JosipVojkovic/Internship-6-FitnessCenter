@@ -7,6 +7,7 @@ CREATE TABLE FitnessCenters(
 CREATE TABLE Activities(
 	Id SERIAL PRIMARY KEY,
 	IdFitnessCenter INT REFERENCES FitnessCenters(Id),
+	Name VARCHAR(50) NOT NULL,
 	Type VARCHAR(30) NOT NULL CHECK(Type IN ('Snaga', 'Kardio', 'Yoga', 'Ples', 'Rehabilitacija')),
 	Price DECIMAL NOT NULL CHECK(Price > 0)
 )
