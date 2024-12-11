@@ -18,9 +18,16 @@ CREATE TABLE Terms(
 	MaxParticipants INT NOT NULL CHECK(MaxParticipants > 0)
 )
 
+CREATE TABLE Countries(
+	Id SERIAL PRIMARY KEY,
+	Name VARCHAR(30) UNIQUE NOT NULL,
+	Population INT NOT NULL CHECK(Population > 0),
+	AverageSalary DECIMAL NOT NULL CHECK(AverageSalary > 0)
+)
+
 CREATE TABLE Trainers(
 	Id SERIAL PRIMARY KEY,
-	IdCountry VARCHAR(30) REFERENCES Countries(Id),
+	IdCountry INT REFERENCES Countries(Id),
 	FirstName VARCHAR(30) NOT NULL,
 	LastName VARCHAR(30) NOT NULL,
 	BirthDate DATE NOT NULL CHECK(BirthDate < CURRENT_DATE),
@@ -32,13 +39,6 @@ CREATE TABLE TermTrainers(
 	IdTerm INT REFERENCES Terms(Id),
 	IdTrainer INT REFERENCES Trainers(Id),
 	Role VARCHAR(30) NOT NULL CHECK(Role IN ('Glavni', 'Pomocni'))
-)
-
-CREATE TABLE Countries(
-	Id SERIAL PRIMARY KEY,
-	Name VARCHAR(30) UNIQUE NOT NULL,
-	Population INT NOT NULL CHECK(Population > 0),
-	AverageSalary DECIMAL NOT NULL CHECK(AverageSalary > 0)
 )
 
 CREATE TABLE Users(
