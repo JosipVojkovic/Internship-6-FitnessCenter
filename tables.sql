@@ -20,9 +20,23 @@ CREATE TABLE Terms(
 
 CREATE TABLE Trainers(
 	Id SERIAL PRIMARY KEY,
-	IdCountry VARCHAR(30) NOT NULL,
+	IdCountry VARCHAR(30) REFERENCES Countries(Id),
 	FirstName VARCHAR(30) NOT NULL,
 	LastName VARCHAR(30) NOT NULL,
 	BirthDate DATE NOT NULL CHECK(BirthDate < CURRENT_DATE),
 	Gender VARCHAR(30) NOT NULL CHECK(Gender IN ('Musko', 'Zensko', 'Nepoznato', 'Ostalo'))
+)
+
+CREATE TABLE TermTrainers(
+	Id SERIAL PRIMARY KEY,
+	IdTerm INT REFERENCES Terms(Id),
+	IdTrainer INT REFERENCES Trainers(Id),
+	Role VARCHAR(30) NOT NULL CHECK(Role IN ('Glavni', 'Pomocni'))
+)
+
+CREATE TABLE Countries(
+	Id SERIAL PRIMARY KEY,
+	Name VARCHAR(30) UNIQUE NOT NULL,
+	Population INT NOT NULL CHECK(Population > 0),
+	AverageSalary DECIMAL NOT NULL CHECK(AverageSalary > 0)
 )
