@@ -1,0 +1,5 @@
+CREATE TABLE FitnessCenters(
+	Id SERIAL PRIMARY KEY,
+	Name VARCHAR(30) NOT NULL,
+	WorkingTime VARCHAR(30)
+)
